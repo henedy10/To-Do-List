@@ -10,6 +10,7 @@
 <body>
     <div class="content_form d-flex justify-content-center align-items-center" style="height:100vh"  >
         <form class="w-40 p-5" style="border: solid red 2px">
+            @csrf
         <div class="mb-3" >
             <label for="exampleInputEmail1" class="form-label">Email address</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
