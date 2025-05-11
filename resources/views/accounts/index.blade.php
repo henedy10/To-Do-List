@@ -24,7 +24,13 @@
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+            <div class="mb-5">
+                <button type="submit" class="btn btn-primary mb-3" style="width: 100%">Login</button>
+                <span>Forget Password ? <a href="">Click Here</a></span>
+            </div>
+            <div>
+                <span style=" display:block; text-align:center">Not a member yet? <a href="">Sign Up</a></span>
+            </div>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
