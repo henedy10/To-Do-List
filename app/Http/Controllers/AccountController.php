@@ -12,4 +12,7 @@ class AccountController extends Controller
     public function edit(){
         return view('accounts.edit');
     }
+    public function create(){
+        return view('accounts.create');
+    }
 }
