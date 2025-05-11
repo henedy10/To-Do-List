@@ -9,4 +9,7 @@ class AccountController extends Controller
     public function index()  {
         return view('accounts.index');
     }
+    public function edit(){
+        return view('accounts.edit');
+    }
 }

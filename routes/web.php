@@ -7,3 +7,4 @@ use App\Http\Controllers\AccountController;
 //     return view('welcome');
 // });
 Route::get('/',[AccountController::class,'index'])->name('accounts.index');
+Route::get('/accounts/{account}/edit',[AccountController::class,'edit'])->name('accounts.edit');
