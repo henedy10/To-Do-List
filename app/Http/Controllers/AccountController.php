@@ -9,10 +9,6 @@ use Symfony\Contracts\Service\Attribute\Required;
 class AccountController extends Controller
 {
     public function index(){
-        request()->validate([
-            'email'=>'required',
-            'password'=>'required',
-        ]);
         return view('accounts.index');
     }
     public function edit(){
@@ -21,11 +17,19 @@ class AccountController extends Controller
     public function create(){
         return view('accounts.create');
     }
-    public function show($id){
-        // $email=request()->email;
-        // $password=request()->password;
-
-        // $user=User::where('email',$email)->first();
-        // return $id;
+    public function show(){
+        $email=request()->email;
+        $password=request()->password;
+        request()->validate([
+            'email'=>'required',
+            'password'=>'required',
+        ]);
+        $user=User::where('email',$email)->first();
+        request()->validate([
+            'email'=>'exists:users,email'
+        ]);
+        if(!is_null($user)){
+            return "hello";
+        }
     }
 }

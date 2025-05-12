@@ -9,17 +9,17 @@
 </head>
 <body>
     <div class="content_form d-flex justify-content-center align-items-center" style="height:100vh"  >
-        @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-        <form class="p-5" style="border: solid red 2px" action="{{route('accounts.show',1)}}" method="GET">
+        <form class="p-5" style="border: solid red 2px" action="{{route('accounts.show')}}" method="get">
             @csrf
+            @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
             <div class="mb-3" >
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                 <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
