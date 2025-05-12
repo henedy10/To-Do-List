@@ -15,4 +15,7 @@ class AccountController extends Controller
     public function create(){
         return view('accounts.create');
     }
+    public function show(){
+        return 'hello';
+    }
 }
