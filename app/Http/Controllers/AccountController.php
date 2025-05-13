@@ -32,7 +32,7 @@ class AccountController extends Controller
             'password'=>'exists:users,password'
         ]);
         if(!is_null($user)){
-            return "hello";
+            return "hello ".$user->name;
         }
     }
 }
