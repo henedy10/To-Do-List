@@ -11,8 +11,8 @@ class AccountController extends Controller
     public function index(){
         return view('accounts.index');
     }
-    public function edit($account_id){
-        return view('accounts.edit',['account_id'=>$account_id]);
+    public function edit(){
+        return view('accounts.edit');
     }
     public function create(){
         return view('accounts.create');
@@ -35,7 +35,7 @@ class AccountController extends Controller
             return "hello ".$user->name;
         }
     }
-public function update($id){
-    return $id;
+public function update(){
+    return 'hello';
 }
 }

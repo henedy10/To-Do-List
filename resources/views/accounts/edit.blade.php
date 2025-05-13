@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="content_form d-flex justify-content-center align-items-center" style="height:100vh"  >
-        <form class="p-5" style="border: solid red 2px;width:25%" action="{{route('accounts.update',$account_id)}}" method="POST">
+        <form class="p-5" style="border: solid red 2px;width:25%" action="{{route('accounts.update')}}" method="POST">
             @method('PUT')
             @csrf
             <div class="mb-3" >

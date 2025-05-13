@@ -35,7 +35,7 @@
             </div>
             <div class="mb-5">
                 <button type="submit" class="btn btn-primary mb-3" style="width: 100%">Login</button>
-                <span>Forget Password ? <a href="{{route('accounts.edit',1)}}">Click Here</a></span>
+                <span>Forget Password ? <a href="{{route('accounts.edit')}}">Click Here</a></span>
             </div>
             <div>
                 <span style=" display:block; text-align:center">Not a member yet? <a href="{{route('accounts.create')}}">Sign Up</a></span>
