@@ -24,9 +24,12 @@ class AccountController extends Controller
             'email'=>'required',
             'password'=>'required',
         ]);
-        $user=User::where('email',$email)->first();
+        $user=User::where('email',$email)
+        ->where('password',$password)
+        ->first();
         request()->validate([
-            'email'=>'exists:users,email'
+            'email'=>'exists:users,email',
+            'password'=>'exists:users,password'
         ]);
         if(!is_null($user)){
             return "hello";
