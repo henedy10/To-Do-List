@@ -9,7 +9,8 @@
 </head>
 <body>
     <div class="content_form d-flex justify-content-center align-items-center" style="height:100vh"  >
-        <form class="p-5" style="border: solid red 2px;width:25%">
+        <form class="p-5" style="border: solid red 2px;width:25%" action="{{route('accounts.update',$account_id)}}" method="POST">
+            @method('PUT')
             @csrf
             <div class="mb-3" >
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
