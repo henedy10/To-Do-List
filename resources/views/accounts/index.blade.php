@@ -18,7 +18,7 @@
                 </ul>
             </div>
         @endif
-        <form class="p-5" style="border: solid red 2px" action="{{route('accounts.show')}}" method="get">
+        <form class="p-5" style="border: solid red 2px" action="{{route('accounts.check')}}" method="get">
             @csrf
             <div class="mb-3" >
                 <label for="exampleInputEmail1" class="form-label">Email address</label>

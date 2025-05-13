@@ -17,7 +17,7 @@ class AccountController extends Controller
     public function create(){
         return view('accounts.create');
     }
-    public function show(){
+    public function check(){
         $email=request()->email;
         $password=request()->password;
         request()->validate([
