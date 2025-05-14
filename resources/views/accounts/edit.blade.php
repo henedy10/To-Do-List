@@ -8,17 +8,17 @@
     <title>Home</title>
 </head>
 <body>
+    @if ($errors->any())
+        <div class="alert alert-danger w-100">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        </div>
+    @endif
     <div class="content_form d-flex justify-content-center align-items-center" style="height:100vh"  >
         <form class="p-5" style="border: solid red 2px;width:25%" action="{{route('accounts.update')}}" method="POST">
-                    @if ($errors->any())
-            <div class="alert alert-danger w-100">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
             @method('PUT')
             @csrf
             <div class="mb-3" >
