@@ -35,7 +35,15 @@ class AccountController extends Controller
             return "hello ".$user->name;
         }
     }
-public function update(){
-    return 'hello';
-}
+    public function update(){
+        $email=request()->email;
+        $password=request()->password;
+        $confirm=request()->confirm_password;
+        request()->validate([
+            'email'=>'required|exists:users,email',
+            'password'=>'required|min:5',
+            'confirm_password'=>'required|same:password',
+        ]);
+        return to_route('accounts.index');
+    }
 }
