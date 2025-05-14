@@ -44,7 +44,7 @@ class AccountController extends Controller
             'password'=>'required|min:5',
             'confirm_password'=>'required|same:password',
         ]);
-        $update=User::where('email',$email)
+        $update=User::where('email',$email)->first()
                     ->update(['password'=>$password]);
         return to_route('accounts.index');
     }
