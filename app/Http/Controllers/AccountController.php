@@ -11,12 +11,7 @@ class AccountController extends Controller
     public function index(){
         return view('accounts.index');
     }
-    public function edit(){
-        return view('accounts.edit');
-    }
-    public function create(){
-        return view('accounts.create');
-    }
+
     public function check(){
         $email=request()->email;
         $password=request()->password;
@@ -35,6 +30,10 @@ class AccountController extends Controller
             return "hello ".$user->name;
         }
     }
+
+    public function edit(){
+        return view('accounts.edit');
+    }
     public function update(){
         $email=request()->email;
         $password=request()->password;
@@ -47,6 +46,10 @@ class AccountController extends Controller
         $update=User::where('email',$email)->first()
                     ->update(['password'=>$password]);
         return to_route('accounts.index');
+    }
+    
+    public function create(){
+        return view('accounts.create');
     }
 
     public function store(){
