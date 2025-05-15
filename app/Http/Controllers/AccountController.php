@@ -58,10 +58,15 @@ class AccountController extends Controller
         $password=request()->password;
 
         request()->validate([
-            'name'=>'required',
-            'email'=>'required',
-            'password'=>'required'
+            'name'=>"required",
+            'email'=>'required|email:rfc,dns',
+            'password'=>'required|min:5'
         ]);
-        return 'hello';
+        $insert=User::insert([
+            'name'=>$name,
+            'email'=>$email,
+            'password'=>$password
+        ]);
+        return to_route('accounts.index');
     }
 }
