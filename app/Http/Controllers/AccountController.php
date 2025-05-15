@@ -47,12 +47,21 @@ class AccountController extends Controller
                     ->update(['password'=>$password]);
         return to_route('accounts.index');
     }
-    
+
     public function create(){
         return view('accounts.create');
     }
 
     public function store(){
+        $name=request()->name;
+        $email=request()->email;
+        $password=request()->password;
+
+        request()->validate([
+            'name'=>'required',
+            'email'=>'required',
+            'password'=>'required'
+        ]);
         return 'hello';
     }
 }
