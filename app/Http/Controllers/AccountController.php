@@ -48,4 +48,8 @@ class AccountController extends Controller
                     ->update(['password'=>$password]);
         return to_route('accounts.index');
     }
+
+    public function store(){
+        return 'hello';
+    }
 }

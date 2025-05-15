@@ -9,8 +9,12 @@
 </head>
 <body>
     <div class="content_form d-flex justify-content-center align-items-center" style="height:100vh"  >
-        <form class="p-5" style="border: solid red 2px" action="#" method="#">
+        <form class="p-5" style="border: solid red 2px" action="{{route('accounts.store')}}" method="POST">
             @csrf
+            <div class="mb-3" >
+                <label for="name" class="form-label">User Name</label>
+                <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
+            </div>
             <div class="mb-3" >
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -20,16 +24,8 @@
                 <label for="exampleInputPassword1" class="form-label">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1">
             </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <div class="mb-5">
-                <button type="submit" class="btn btn-primary mb-3" style="width: 100%">Login</button>
-                <span>Forget Password ? <a href="{{route('accounts.edit',1)}}">Click Here</a></span>
-            </div>
-            <div>
-                <span style=" display:block; text-align:center">Not a member yet? <a href="{{route('accounts.create')}}">Sign Up</a></span>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary mb-3" style="width: 100%">Submit</button>
             </div>
         </form>
     </div>
