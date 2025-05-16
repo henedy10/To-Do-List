@@ -59,8 +59,8 @@ class AccountController extends Controller
 
         request()->validate([
             'name'=>"required",
-            'email'=>'required|email:rfc,dns',
-            'password'=>'required|min:5'
+            'email'=>'required|email:rfc,dns|unique:users,email',
+            'password'=>'required|min:5|unique:users,password'
         ]);
         $insert=User::insert([
             'name'=>$name,
