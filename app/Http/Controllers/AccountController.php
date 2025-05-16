@@ -58,7 +58,7 @@ class AccountController extends Controller
         $password=request()->password;
 
         request()->validate([
-            'name'=>"required",
+            'name'=>"required|unique:users,name,except,id",
             'email'=>'required|email:rfc,dns|unique:users,email',
             'password'=>'required|min:5|unique:users,password'
         ]);
