@@ -1,3 +1,6 @@
+<?php 
+require __DIR__."/login.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,12 +15,19 @@
     <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Login</h2>
     
     <!-- لو فيه رسالة خطأ -->
-    <!-- <div class="bg-red-100 text-red-600 p-2 rounded mb-4 text-sm">
-      Invalid username or password.
-    </div> -->
+    <div class="bg-red-100 text-red-500 pl-1 rounded mb-4 text-medium">
+      <?php 
+        if(isset($_SESSION['Err'])){
+          foreach($_SESSION['Err'] as $error){
+            echo "* $error<br>";
+          }
+          unset($_SESSION['Err']);
+        }
+      ?>
+    </div>
 
     <form action="./login.php" method="POST" class="space-y-5">
-        <input type="hidden" name="CSRF" value="#">
+        <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
       <!-- Email -->
       <div>
         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
@@ -38,7 +48,7 @@
           <input type="checkbox" name="remember" class="text-blue-500 border-gray-300 rounded">
           Remember me
         </label>
-        <a href="#" class="text-blue-500 hover:underline">Forgot password?</a>
+        <a href="./changepassword/EditPassword.php" class="text-blue-500 hover:underline">Forgot password?</a>
       </div>
 
       <!-- Submit Button -->
@@ -51,7 +61,7 @@
     <!-- Register Link -->
     <p class="text-center text-sm text-gray-600 mt-6">
       Don’t have an account? 
-      <a href="#" class="text-blue-500 hover:underline">Sign up</a>
+      <a href="./signup.php" class="text-blue-500 hover:underline">Sign up</a>
     </p>
   </div>
 
