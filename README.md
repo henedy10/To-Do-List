@@ -52,12 +52,7 @@ http://localhost/To_Do_List/index.php
 ###########
 
 # Project Structure
-.
-├── DB.php               # Database connection class
-├── index.php            # Task management (Add/View/Delete)
-├── UpdatePassword.php   # Password update page with Validator
-├── README.md            # Project documentation
-└── tasks.sql            # SQL script (optional)
+###########
 
 # Future Enhancements
 
