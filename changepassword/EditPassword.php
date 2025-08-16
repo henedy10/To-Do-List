@@ -22,19 +22,11 @@ session_start();
 
         <div class="bg-red-100 text-red-500 pl-1 rounded mb-4 text-medium">
             <?php 
-                if(isset($_SESSION['Err'])):
-                  foreach($_SESSION['Err'] as $error):
+                if(isset($_SESSION['EditPasswordErr'])):
+                  foreach($_SESSION['EditPasswordErr'] as $error):
                     echo "* $error<br>";
                   endforeach;
-                  unset($_SESSION['Err']);
-                endif;
-            ?>
-        </div>
-        <div class="bg-green-100 text-green-500 pl-1 rounded mb-4 text-medium">
-            <?php 
-                if(isset($_SESSION['SuccessMsg'])):
-                    echo "* ". $_SESSION['SuccessMsg']."<br>";
-                    unset($_SESSION['SuccessMsg']);
+                  unset($_SESSION['EditPasswordErr']);
                 endif;
             ?>
         </div>
@@ -66,6 +58,5 @@ session_start();
         </button>
       </form>
   </div>
-
 </body>
 </html>

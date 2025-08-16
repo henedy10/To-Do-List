@@ -34,15 +34,18 @@ class UserAuthentication extends Validator{
     }
 
     public function check_account($email,$password){
-        $sql_check_account="SELECT id,email,`password` FROM users WHERE email=? AND `password`=?";
+        $sql_check_account="SELECT id,email,`password` FROM users WHERE email=?";
         $stmt=$this->conn->prepare($sql_check_account);
-        $stmt->bind_param("ss",$email,$password);
+        $stmt->bind_param("s",$email);
         $stmt->execute();
         $result=$stmt->get_result();
         if($result->num_rows<=0){
             $this->errors['ExistErr']="This account is not exist!!";
         }else{
-            $this->info = $result->fetch_assoc();
+            $row = $result->fetch_assoc();
+            if(!password_verify($password,$row['password'])){
+                $this->errors['passwordErr']="Password doesn't match!";                
+            }
             $stmt->close;
         }
     }
@@ -69,17 +72,17 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $validator->passwordvalidate($password);
 
     if(!empty($validator->geterrors())){
-        $_SESSION['Err']=$validator->geterrors();
+        $_SESSION['LoginErr']=$validator->geterrors();
         header("Location: ./index.php");
         exit;
     }
 
-    $db= new DataBase('localhost','ahmed','','loginform_oop');
+    $db= new DataBase('localhost','ahmed','','to_do_list');
     $auth= new UserAuthentication($db->getconnection());
     $auth->check_account($email,$password);
 
     if(!empty($auth->geterrors())){
-        $_SESSION['Err']=$auth->geterrors();
+        $_SESSION['LoginErr']=$auth->geterrors();
         header("Location: ./index.php");
         exit;
     }else{

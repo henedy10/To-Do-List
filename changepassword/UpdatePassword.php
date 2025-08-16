@@ -24,6 +24,12 @@ class Validator{
         }
     }
 
+    public function haserrors(){
+        if(!empty($this->errors)){
+            return true;
+        }
+    }
+
     public function geterrors(){
         return $this->errors;
     }
@@ -32,6 +38,7 @@ class Validator{
 class EditPassword extends Validator{
 
     private $conn;
+    public $SuccessMsg;
 
     public function __construct($conn)
     {
@@ -58,21 +65,17 @@ class EditPassword extends Validator{
             $stmt=$this->conn->prepare($sql_update_password);
             $stmt->bind_param("ss",$password,$email);
             if($stmt->execute()){
-                $_SESSION['SuccessMsg']="Your updated is done successfully";
+                $this->SuccessMsg="Your updated is done successfully";
             }else{
                 $this->errors['FailMsg']="There is an error".$stmt->error;
             }
+            $stmt->close();
         }
-    }
-
-    public function geterrors(){
-        return $this->errors;
     }
 
 }
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
-    
     $email=htmlspecialchars(strip_tags($_POST['email']))??"";
     $password=$_POST['newpassword']??"";
     $confirmpassword=$_POST['confirmpassword']??"";
@@ -83,39 +86,33 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $validator = new Validator();
     $validator->emailvalidate($email);
     $validator->passwordvalidate($password,$confirmpassword);
-    if(empty($validator->geterrors())){
 
+    if($validator->haserrors()){
+        $_SESSION['EditPasswordErr']=$validator->geterrors();
+        header("Location: ./EditPassword.php");
+        exit;
+    }else{
         $EditPassword= new EditPassword($conn);
         $EditPassword->CheckExistEmail($email);
-        $EditPassword->UpdatePassword($email,$password);
-
-        if(empty($EditPassword->geterrors())){
-            $_SESSION['Err']=$EditPassword->geterrors();
+        if($EditPassword->haserrors()){
+            $_SESSION['EditPasswordErr']=$EditPassword->geterrors();
             header("Location: ./EditPassword.php");
             exit;
         }else{
-            $_SESSION['Err']=$EditPassword->geterrors();
-            header("Location: ./EditPassword.php");
-            exit;
+            $hashpass=password_hash($password,PASSWORD_DEFAULT);
+            $EditPassword->UpdatePassword($email,$hashpass);
+
+            if($EditPassword->haserrors()){
+                $_SESSION['EditPasswordErr']=$EditPassword->geterrors();
+                header("Location: ./EditPassword.php");
+                exit;                
+            }else{
+                $_SESSION['SuccessMsg']=$EditPassword->SuccessMsg;
+                header("Location: ../index.php");
+                exit; 
+            }
         }
 
-    }else{
-
-        $_SESSION['Err']=$validator->geterrors();
-        header("Location: ./EditPassword.php");
-        exit;
-
     }
-
 }
-
-
-
-
-
-
-
-
-
-
 ?>

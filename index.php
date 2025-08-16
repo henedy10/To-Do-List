@@ -17,11 +17,20 @@ require __DIR__."/login.php";
     <!-- لو فيه رسالة خطأ -->
     <div class="bg-red-100 text-red-500 pl-1 rounded mb-4 text-medium">
       <?php 
-        if(isset($_SESSION['Err'])){
-          foreach($_SESSION['Err'] as $error){
+        if(isset($_SESSION['LoginErr'])){
+          foreach($_SESSION['LoginErr'] as $error){
             echo "* $error<br>";
           }
-          unset($_SESSION['Err']);
+          unset($_SESSION['LoginErr']);
+        }
+      ?>
+    </div>
+
+    <div class="bg-green-100 text-green-500 pl-1 rounded mb-4 text-medium">
+      <?php 
+        if(isset($_SESSION['SuccessMsg'])){
+            echo "*". $_SESSION['SuccessMsg'] ."<br>";
+          unset($_SESSION['SuccessMsg']);
         }
       ?>
     </div>
@@ -61,7 +70,7 @@ require __DIR__."/login.php";
     <!-- Register Link -->
     <p class="text-center text-sm text-gray-600 mt-6">
       Don’t have an account? 
-      <a href="./signup.php" class="text-blue-500 hover:underline">Sign up</a>
+      <a href="./SignUp/CreateAccount.php" class="text-blue-500 hover:underline">Sign up</a>
     </p>
   </div>
 
