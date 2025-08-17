@@ -1,5 +1,6 @@
 <?php
 session_start();
+require __DIR__."/../csrf.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +27,7 @@ session_start();
         </div>
 
         <form action="./StoreAccount.php" method="POST" class="space-y-5">
-            <input type="hidden" name="CSRF_Token" value="#">
+            <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
             <!-- Username -->
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Username</label>

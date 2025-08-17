@@ -85,6 +85,11 @@ class StoreAccount extends Validator{
 }
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
+
+    $CsrfToken=htmlspecialchars(strip_tags(GenerateToken()));
+    if(!hash_equals($_POST['CSRF_Token'],$CsrfToken)||!isset($_POST['CSRF_Token'])){
+        die("CSRF Token is invalid!");
+    }
     
     $name=htmlspecialchars($_POST['name'])??"";
     $email=htmlspecialchars($_POST['email'])??"";

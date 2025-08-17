@@ -76,6 +76,12 @@ class EditPassword extends Validator{
 }
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
+
+    $CsrfToken=htmlspecialchars(strip_tags(GenerateToken()));
+    if(!hash_equals($_POST['CSRF_Token'],$CsrfToken)||!isset($_POST['CSRF_Token'])){
+        die("CSRF Token is invalid!");
+    }
+
     $email=htmlspecialchars(strip_tags($_POST['email']))??"";
     $password=$_POST['newpassword']??"";
     $confirmpassword=$_POST['confirmpassword']??"";

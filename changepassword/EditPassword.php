@@ -1,5 +1,6 @@
 <?php
 session_start();
+require __DIR__."/../csrf.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +19,7 @@ session_start();
 
 
       <form action="./UpdatePassword.php" method="POST" class="space-y-5" >
-        <input type="hidden" name="CSRF_Token" value="#">
+        <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
 
         <div class="bg-red-100 text-red-500 pl-1 rounded mb-4 text-medium">
             <?php 

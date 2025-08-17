@@ -5,6 +5,4 @@ function GenerateToken(){
     }
     return $_SESSION['CSRF_Token'];
 }
-
-
 ?>
