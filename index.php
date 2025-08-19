@@ -54,7 +54,7 @@ require __DIR__."/login.php";
       <!-- Remember Me -->
       <div class="flex items-center justify-between text-sm">
         <label class="flex items-center gap-2">
-          <input type="checkbox" name="remember" class="text-blue-500 border-gray-300 rounded">
+          <input type="checkbox" name="rememberme" value="1" class="text-blue-500 border-gray-300 rounded">
           Remember me
         </label>
         <a href="./changepassword/EditPassword.php" class="text-blue-500 hover:underline">Forgot password?</a>

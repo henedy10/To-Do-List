@@ -33,7 +33,7 @@ class UserAuthentication extends Validator{
         $this->conn = $conn;
     }
 
-    public function check_account($email,$password){
+    public function check_account($email,$password,$rememberme){
         $sql_check_account="SELECT id,email,`password` FROM users WHERE email=?";
         $stmt=$this->conn->prepare($sql_check_account);
         $stmt->bind_param("s",$email);
@@ -45,16 +45,27 @@ class UserAuthentication extends Validator{
             $row = $result->fetch_assoc();
             if(!password_verify($password,$row['password'])){
                 $this->errors['passwordErr']="Password doesn't match!";                
+            }else{
+                if($rememberme=="1"){
+                    setcookie("RememberMe",$row['id'],time()+3600,'/');
+                }
+                $_SESSION['user_id']=$row['id'];
             }
-            $stmt->close;
         }
+        $stmt->close();
     }
 
     public function __destruct()
     {
-        $this->conn->close;
+        $this->conn->close();
     }
 
+}
+
+if(isset($_COOKIE['RememberMe'])){
+    $_SESSION['user_id']=$_COOKIE['RememberMe'];
+    header("Location: ./home.php");
+    exit;
 }
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
@@ -63,32 +74,33 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     if(!hash_equals($_POST['CSRF_Token'],$CsrfToken)||!isset($_POST['CSRF_Token'])){
         die("CSRF Token is invalid!");
     }
-
-    $email=htmlspecialchars(strip_tags($_POST['email']))??"";
-    $password=$_POST['password']??"";
-
-    $validator= new Validator;
-    $validator->emailvalidate($email);
-    $validator->passwordvalidate($password);
-
-    if(!empty($validator->geterrors())){
-        $_SESSION['LoginErr']=$validator->geterrors();
-        header("Location: ./index.php");
-        exit;
-    }
-
-    $db= new DataBase('localhost','ahmed','','to_do_list');
-    $auth= new UserAuthentication($db->getconnection());
-    $auth->check_account($email,$password);
-
-    if(!empty($auth->geterrors())){
-        $_SESSION['LoginErr']=$auth->geterrors();
-        header("Location: ./index.php");
-        exit;
-    }else{
-        header("Location: ./home.php");
-        exit;
-    }
+    
+        $email=htmlspecialchars($_POST['email'])??"";
+        $password=$_POST['password']??"";
+        $rememberme=$_POST['rememberme']??"";
+    
+        $validator= new Validator;
+        $validator->emailvalidate($email);
+        $validator->passwordvalidate($password);
+    
+        if(!empty($validator->geterrors())){
+            $_SESSION['LoginErr']=$validator->geterrors();
+            header("Location: ./index.php");
+            exit;
+        }
+    
+        $db= new DataBase('localhost','ahmed','','to_do_list');
+        $auth= new UserAuthentication($db->getconnection());
+        $auth->check_account($email,$password,$rememberme);
+    
+        if(!empty($auth->geterrors())){
+            $_SESSION['LoginErr']=$auth->geterrors();
+            header("Location: ./index.php");
+            exit;
+        }else{
+            header("Location: ./home.php");
+            exit;
+        }
 }
 
 ?>
