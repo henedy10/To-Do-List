@@ -32,12 +32,20 @@ The project demonstrates how to apply Object-Oriented Programming principles in 
 CREATE DATABASE to_do_list;
 USE to_do_list;
 
-3.Create the users table:
+3.
+Create the users table:
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
+);
+Create the tasks table:
+CREATE TABLE tasks(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT ,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    title VARCHAR(255) NOT NULL
 );
 
 4.Update database credentials in DB.php:
