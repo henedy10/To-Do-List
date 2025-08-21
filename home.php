@@ -2,7 +2,7 @@
 session_start();
 require __DIR__."\DB.php";
 
-$sql_show_tasks="SELECT title FROM tasks WHERE user_id=?";
+$sql_show_tasks="SELECT * FROM tasks WHERE user_id=?";
 $stmt= $conn->prepare($sql_show_tasks);
 $stmt->bind_param("i",$_SESSION['user_id']);
 $stmt->execute();
@@ -105,6 +105,15 @@ $result=$stmt->get_result();
           }
         ?>
       </div>
+
+      <div class="bg-green-100 text-black  pl-1 rounded mb-4 text-medium">
+        <?php 
+          if(isset($_SESSION['SuccessMsg'])){
+              echo "*". $_SESSION['SuccessMsg'] ."<br>";
+            unset($_SESSION['SuccessMsg']);
+          }
+        ?>
+      </div>
     </div>
 
   <!-- Task List -->
@@ -117,8 +126,13 @@ $result=$stmt->get_result();
             <span class="task-text text-gray-700"><?php echo $row['title']?></span>
           </div>
           <div class="flex space-x-2 justify-end">
-            <a href="./EditTask/EditTask.php" class="text-blue-500 hover:text-blue-700 text-sm">Edit</a>
-            <a href="#" class="text-red-500 hover:text-red-700 text-sm">Delete</a>
+            <form action="./EditTask/EditTask.php" method="GET">
+              <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
+              <button type="submit" class="text-blue-500 hover:text-blue-700 text-sm">Edit</button>
+            </form>
+            <form action="#">
+              <button class="text-red-500 hover:text-red-700 text-sm">Delete</button>
+            </form>
           </div>
         </div>
       <?php endwhile; ?>
