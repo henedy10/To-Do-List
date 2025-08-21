@@ -12,7 +12,7 @@ class Validator{
     }
 
     public function haserrors(){
-        if(!empty($errors)){
+        if(!empty($this->errors)){
             return true;
         }
     }

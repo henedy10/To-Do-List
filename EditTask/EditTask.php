@@ -42,12 +42,22 @@ $row=$result->fetch_assoc();
       <input 
         type="text" 
         name="task_title" 
-        value="<?php echo $row['title'] ?>"
+        placeholder="Title Task"
+        value="<?php echo $row['title'] ?? " "?>"
         class="w-full border rounded px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200"
         required
       >
     </div>
-
+      <div class="bg-red-100 text-red-500 pl-1 rounded mb-4 text-medium">
+        <?php 
+          if(isset($_SESSION['TitleErr'])){
+            foreach($_SESSION['TitleErr'] as $error){
+              echo "* $error<br>";
+            }
+            unset($_SESSION['TitleErr']);
+          }
+        ?>
+      </div>
     <!-- Actions -->
     <div class="flex justify-end space-x-3 pt-4">
       <a href="../home.php" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Cancel</a>
