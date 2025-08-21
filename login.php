@@ -47,7 +47,7 @@ class UserAuthentication extends Validator{
                 $this->errors['passwordErr']="Password doesn't match!";                
             }else{
                 if($rememberme=="1"){
-                    setcookie("RememberMe",$row['id'],time()+3600,'/');
+                    setcookie("RememberMe",$row['id'],time()+(30*24*60*60),'/');
                 }
                 $_SESSION['user_id']=$row['id'];
             }
