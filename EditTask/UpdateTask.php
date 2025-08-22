@@ -60,14 +60,14 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     $validator=new Validator;
     $validator->ValidateTitle($title);
     if($validator->haserrors()){
-        $_SESSION['TitleErr']=$validator->geterrors();
+        $_SESSION['Err']=$validator->geterrors();
         header("Location: ./EditTask.php");
         exit;
     }else{
         $StoreTask=new UpdateTask($conn);
         $StoreTask->StoreTask($title,$TaskId);
         if($StoreTask->haserrors()){
-            $_SESSION['TitleErr']=$StoreTask->geterrors();
+            $_SESSION['Err']=$StoreTask->geterrors();
             header("Location: ./EditTask.php");
             exit;            
         }else{

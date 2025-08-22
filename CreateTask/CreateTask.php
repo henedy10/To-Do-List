@@ -58,13 +58,13 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $validator->ValidateTitleTask($TaskTitle);
     
     if($validator->haserrors()){
-        $_SESSION['TitleErr']=$validator->geterrors();
+        $_SESSION['Err']=$validator->geterrors();
         header("Location: ../home.php");
         exit;
     }else{
         $StoreTask= new StoreTask($conn);
         $StoreTask->StoreTask($TaskTitle);
-        $_SESSION['TitleErr']=$StoreTask->geterrors();
+        $_SESSION['Err']=$StoreTask->geterrors();
         header("Location: ../home.php");
         exit;
     }

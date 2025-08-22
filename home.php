@@ -97,11 +97,11 @@ $result=$stmt->get_result();
       </div>
       <div class="bg-red-100 text-red-500 pl-1 rounded mb-4 text-medium">
         <?php 
-          if(isset($_SESSION['TitleErr'])){
-            foreach($_SESSION['TitleErr'] as $error){
+          if(isset($_SESSION['Err'])){
+            foreach($_SESSION['Err'] as $error){
               echo "* $error<br>";
             }
-            unset($_SESSION['TitleErr']);
+            unset($_SESSION['Err']);
           }
         ?>
       </div>
@@ -130,8 +130,9 @@ $result=$stmt->get_result();
               <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
               <button type="submit" class="text-blue-500 hover:text-blue-700 text-sm">Edit</button>
             </form>
-            <form action="#">
-              <button class="text-red-500 hover:text-red-700 text-sm">Delete</button>
+            <form action="./DeleteTask/DeleteTask.php" method="POST" onsubmit="return confirmDelete();">
+              <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
+              <button  class="text-red-500 hover:text-red-700 text-sm" type="submit">Delete</button>
             </form>
           </div>
         </div>
@@ -154,6 +155,10 @@ $result=$stmt->get_result();
         }
       });
     });
+
+    function confirmDelete() {
+        return confirm("Are you sure to delete it?");
+    }
   </script>
 </body>
 </html>
