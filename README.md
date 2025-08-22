@@ -56,7 +56,7 @@ http://localhost/To_Do_List/index.php
 
 # Usage
 
-* On the homepage (index.php), you can:
+* On the homepage (home.php), you can:
 ###########
 
 # Project Structure

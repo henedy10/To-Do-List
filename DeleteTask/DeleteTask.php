@@ -43,7 +43,7 @@ class DeleteTask{
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
 
-    $TaskId=$_POST['TaskId'];
+    $TaskId=intval($_POST['TaskId']);
 
     $db= new DataBase('localhost','ahmed','','to_do_list');
     $conn= $db->getconnection();

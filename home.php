@@ -7,6 +7,15 @@ $stmt= $conn->prepare($sql_show_tasks);
 $stmt->bind_param("i",$_SESSION['user_id']);
 $stmt->execute();
 $result=$stmt->get_result();
+
+
+$sql_count_complete_tasks="SELECT COUNT(*) FROM tasks WHERE user_id=? AND complete=1";
+$stmt_count_complete_tasks= $conn->prepare($sql_count_complete_tasks);
+$stmt_count_complete_tasks->bind_param("i",$_SESSION['user_id']);
+$stmt_count_complete_tasks->execute();
+$stmt_count_complete_tasks->bind_result($count_complete); 
+$stmt_count_complete_tasks->fetch(); 
+
 ?>
 
 <!DOCTYPE html>
@@ -62,11 +71,11 @@ $result=$stmt->get_result();
     </div>
     <div class="bg-white shadow rounded p-3">
       <p class="text-gray-500 text-sm">Completed</p>
-      <p class="text-xl font-bold text-green-600">#</p>
+      <p class="text-xl font-bold text-green-600"><?php echo $count_complete ?></p>
     </div>
     <div class="bg-white shadow rounded p-3">
       <p class="text-gray-500 text-sm">Pending</p>
-      <p class="text-xl font-bold text-yellow-600">#</p>
+      <p class="text-xl font-bold text-yellow-600"><?php echo $result->num_rows-$count_complete ?></p>
     </div>
   </div>
 
@@ -121,19 +130,34 @@ $result=$stmt->get_result();
     <?php if($result->num_rows>0): ?>
       <?php while($row=$result->fetch_assoc()): ?>
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-3 gap-2 hover:bg-gray-50 transition">
+
           <div class="flex items-center space-x-3">
-            <input type="checkbox" class="h-5 w-5 text-blue-500 task-check">
-            <span class="task-text text-gray-700"><?php echo $row['title']?></span>
+            <form action="./EditTask/UpdateStatusTask.php" method="POST">
+              <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
+              <input 
+                type="checkbox"
+                name="status"
+                class="h-5 w-5 text-blue-500 task-check"
+                onchange="this.form.submit()" 
+                value="1"
+                <?php if($row['complete'] == 1) echo 'checked'; ?>
+              >
+              <span class="task-text <?php echo $row['complete'] ? 'line-through text-gray-400' : 'text-gray-700'; ?>text-gray-700"> <?php echo $row['title']?> </span>
+            </form>
           </div>
+
           <div class="flex space-x-2 justify-end">
+
             <form action="./EditTask/EditTask.php" method="GET">
               <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
               <button type="submit" class="text-blue-500 hover:text-blue-700 text-sm">Edit</button>
             </form>
+
             <form action="./DeleteTask/DeleteTask.php" method="POST" onsubmit="return confirmDelete();">
               <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
               <button  class="text-red-500 hover:text-red-700 text-sm" type="submit">Delete</button>
             </form>
+
           </div>
         </div>
       <?php endwhile; ?>
@@ -145,17 +169,6 @@ $result=$stmt->get_result();
 
 <!-- Small Script to toggle line-through -->
   <script>
-    document.querySelectorAll(".task-check").forEach(check => {
-      check.addEventListener("change", function() {
-        let text = this.nextElementSibling;
-        if(this.checked){
-          text.classList.add("line-through", "text-gray-400");
-        } else {
-          text.classList.remove("line-through", "text-gray-400");
-        }
-      });
-    });
-
     function confirmDelete() {
         return confirm("Are you sure to delete it?");
     }

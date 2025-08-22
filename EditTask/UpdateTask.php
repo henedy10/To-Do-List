@@ -51,8 +51,8 @@ class UpdateTask extends Validator{
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
 
-    $TaskId=$_POST['TaskId'];
-    $title=$_POST['task_title'];
+    $TaskId=intval($_POST['TaskId']);
+    $title=htmlspecialchars($_POST['task_title']);
 
     $db=new DataBase('localhost','ahmed','','to_do_list');
     $conn=$db->getconnection();
