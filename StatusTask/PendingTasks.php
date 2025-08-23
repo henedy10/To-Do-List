@@ -25,24 +25,6 @@ $result=$stmt->get_result();
       <h1 class="text-xl font-bold text-gray-700">My To-Do List</h1>
     </div>
 
-    <!-- Center: Search -->
-    <div class="w-full md:w-1/3 flex justify-center">
-      <form action="#" method="GET" class="flex w-full max-w-md">
-        <input
-          type="text"
-          name="search"
-          placeholder="Search tasks..."
-          class="flex-1 border rounded-l px-3 py-2 focus:outline-none"
-        >
-        <button
-          type="submit"
-          class="bg-gray-500 text-white px-4 py-2 rounded-r hover:bg-gray-600"
-        >
-          Search
-        </button>
-      </form>
-    </div>
-
     <!-- Right: Logout -->
     <div class="w-full md:w-1/3 flex justify-center md:justify-end">
       <a href="./logout.php" class="text-red-500 hover:text-red-700 font-medium">Logout</a>
