@@ -28,25 +28,28 @@ The project demonstrates how to apply Object-Oriented Programming principles in 
 1. Clone the repository or download the project:
    ```bash
    git clone https://github.com/henedy10/To_Do_List.git
+
 2.Create the database:
 CREATE DATABASE to_do_list;
 USE to_do_list;
 
 3.
-Create the users table:
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
-);
-Create the tasks table:
-CREATE TABLE tasks(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT ,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    title VARCHAR(255) NOT NULL
-);
+    - Create the users table:
+        CREATE TABLE users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            password VARCHAR(255) NOT NULL
+        );
+
+    - Create the tasks table:
+        CREATE TABLE tasks(
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT ,
+            FOREIGN KEY (user_id) REFERENCES users(id),
+            title VARCHAR(255) NOT NULL,
+            complete bool default 0
+        );
 
 4.Update database credentials in DB.php:
 $db = new DataBase('localhost', 'username=>?', 'password=>?', 'to_do_list');
@@ -56,11 +59,21 @@ http://localhost/To_Do_List/index.php
 
 # Usage
 
-* On the homepage (home.php), you can:
-###########
+* On the homepage (home.php), you can find:
 
-# Project Structure
-###########
+    * Task Statistics → Displays the total number of tasks, how many are completed, and how many are still pending.
+
+    * Search Functionality → Easily search for any task by typing a keyword.
+
+    * Task Management →
+
+        - Edit existing tasks.
+
+        - Delete tasks you no longer need.
+
+        - Add new tasks directly from the Home Page.
+
+    * User-Friendly Interface → Designed with simplicity and efficiency in mind, so you can manage your work quickly.
 
 # Future Enhancements
 
