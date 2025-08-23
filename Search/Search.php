@@ -1,6 +1,6 @@
 <?php
 session_start();
-require __DIR__."/DB.php";
+require __DIR__."/../DB.php";
 
 class SearchTask{
     private $conn;
@@ -34,6 +34,12 @@ class SearchTask{
 }
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
+
+    $CsrfToken=htmlspecialchars(strip_tags(GenerateToken()));
+    if(!hash_equals($_POST['CSRF_Token'],$CsrfToken)||!isset($_POST['CSRF_Token'])){
+        die("CSRF Token is invalid!");
+    }
+
     $searchword=htmlspecialchars(trim($_POST['search']));
     $db=new DataBase('localhost','ahmed','','to_do_list');
     $conn=$db->getconnection();
@@ -44,7 +50,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         header("Location: ./ShowSearch.php?search=$searchword");
         exit;
     }else{
-        header("Location: ./home.php");
+        header("Location: ../home.php");
         exit;
     }
 }

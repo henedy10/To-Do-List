@@ -38,7 +38,8 @@
 
         <!-- Center: Search -->
         <div class="w-full md:w-1/3 flex justify-center">
-          <form action="./Search.php" method="POST" class="flex w-full max-w-md">
+          <form action="./Search/Search.php" method="POST" class="flex w-full max-w-md">
+            <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
             <input
               type="text"
               name="search"
@@ -91,6 +92,7 @@
         <div>
           <div>
             <form class="flex flex-col sm:flex-row mb-6 gap-2" method="POST" action="./CreateTask/CreateTask.php">
+              <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
               <input
                 type="text"
                 name="tasktitle"
@@ -134,6 +136,7 @@
 
               <div class="flex items-center space-x-3">
                 <form action="./EditTask/UpdateStatusTask.php" method="POST">
+                  <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
                   <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
                   <input 
                     type="checkbox"
@@ -150,11 +153,13 @@
               <div class="flex space-x-2 justify-end">
 
                 <form action="./EditTask/EditTask.php" method="GET">
+                  <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
                   <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
                   <button type="submit" class="text-blue-500 hover:text-blue-700 text-sm">Edit</button>
                 </form>
 
                 <form action="./DeleteTask/DeleteTask.php" method="POST" onsubmit="return confirmDelete();">
+                  <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
                   <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
                   <button  class="text-red-500 hover:text-red-700 text-sm" type="submit">Delete</button>
                 </form>

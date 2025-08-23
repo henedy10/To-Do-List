@@ -35,6 +35,7 @@ $row=$result->fetch_assoc();
 
   <!-- Edit Task Form -->
   <form action="./UpdateTask.php" method="POST" class="space-y-4">
+    <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
     <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
     <!-- Task Title -->
     <div>

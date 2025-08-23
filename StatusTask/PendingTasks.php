@@ -74,6 +74,7 @@ $result=$stmt->get_result();
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-3 gap-2 hover:bg-gray-50 transition">
 
           <div class="flex items-center space-x-3">
+            <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
             <form action="../EditTask/UpdateStatusTask.php" method="POST">
               <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
               <input 
@@ -91,11 +92,13 @@ $result=$stmt->get_result();
           <div class="flex space-x-2 justify-end">
 
             <form action="../EditTask/EditTask.php" method="GET">
+              <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
               <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
               <button type="submit" class="text-blue-500 hover:text-blue-700 text-sm">Edit</button>
             </form>
 
             <form action="../DeleteTask/DeleteTask.php" method="POST" onsubmit="return confirmDelete();">
+              <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
               <input type="hidden" name="TaskId" value="<?php echo $row['id'] ?>">
               <button  class="text-red-500 hover:text-red-700 text-sm" type="submit">Delete</button>
             </form>

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require __DIR__."\DB.php";
+    require __DIR__."\..\DB.php";
 
     $sql_show_tasks="SELECT * FROM tasks WHERE user_id=?";
     $stmt= $conn->prepare($sql_show_tasks);
@@ -37,7 +37,7 @@
 
                 <!-- Right: Logout -->
                 <div class="w-full md:w-1/3 flex justify-center md:justify-end">
-                    <a href="./logout.php" class="text-red-500 hover:text-red-700 font-medium">Logout</a>
+                    <a href="../logout.php" class="text-red-500 hover:text-red-700 font-medium">Logout</a>
                 </div>
             </div>
         </nav>
@@ -63,9 +63,9 @@
 
             <!-- Tabs -->
             <div class="flex justify-center space-x-4 mb-6">
-                <a href="./home.php" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">All</a>
-                <a href="./StatusTask/PendingTasks.php" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Pending</a>
-                <a href="./StatusTask/CompleteTasks.php" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Completed</a>
+                <a href="../home.php" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">All</a>
+                <a href="../StatusTask/PendingTasks.php" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Pending</a>
+                <a href="../StatusTask/CompleteTasks.php" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Completed</a>
             </div>
 
             <!-- Task List -->
@@ -77,7 +77,8 @@
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-3 gap-2 hover:bg-gray-50 transition">
 
                         <div class="flex items-center space-x-3">
-                            <form action="./EditTask/UpdateStatusTask.php" method="POST">
+                            <form action="../EditTask/UpdateStatusTask.php" method="POST">
+                                <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
                                 <input type="hidden" name="TaskId" value="<?php echo $task['id'] ?>">
                                 <input 
                                     type="checkbox"
@@ -93,12 +94,14 @@
 
                         <div class="flex space-x-2 justify-end">
 
-                            <form action="./EditTask/EditTask.php" method="GET">
+                            <form action="../EditTask/EditTask.php" method="GET">
+                                <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
                                 <input type="hidden" name="TaskId" value="<?php echo $task['id'] ?>">
                                 <button type="submit" class="text-blue-500 hover:text-blue-700 text-sm">Edit</button>
                             </form>
 
-                            <form action="./DeleteTask/DeleteTask.php" method="POST" onsubmit="return confirmDelete();">
+                            <form action="../DeleteTask/DeleteTask.php" method="POST" onsubmit="return confirmDelete();">
+                                <input type="hidden" name="CSRF_Token" value="<?php echo GenerateToken() ?>">
                                 <input type="hidden" name="TaskId" value="<?php echo $task['id'] ?>">
                                 <button  class="text-red-500 hover:text-red-700 text-sm" type="submit">Delete</button>
                             </form>
